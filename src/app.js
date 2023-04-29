@@ -1,6 +1,6 @@
-import { drawElement } from "./drawElement.js";
-import { checkBtnClick } from "./checkBtnClick.js";
-import { addLetter } from "./addLetter.js";
-import { getTextContent } from "./getTextContent.js";
+import { drawElement } from "./components/drawElement.js";
+import { checkBtnClick } from "./components/checkBtnClick.js";
+import { addLetter } from "./components/addLetter.js";
+import { getTextContent } from "./components/getTextContent.js";
 
 class App {}
