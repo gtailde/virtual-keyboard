@@ -1,7 +1,7 @@
-import { drawElement } from './components/drawElement.js';
-import { checkBtnClick } from './components/checkBtnClick.js';
-import { addLetter } from './components/addLetter.js';
-import { getTextContent } from './components/getTextContent.js';
+import drawElement from './components/drawElement';
+import checkBtnClick from './components/checkBtnClick';
+import addLetter from './components/addLetter';
+import getTextContent from './components/getTextContent';
 
 class App {
   constructor() {
@@ -45,8 +45,8 @@ class App {
       this.isCtrlPressed = true;
     }
     if (
-      (event.code === 'AltLeft' && this.isCtrlPressed) ||
-      (event.code === 'ControlLeft' && event.altKey)
+      (event.code === 'AltLeft' && this.isCtrlPressed)
+      || (event.code === 'ControlLeft' && event.altKey)
     ) {
       this.isCtrlPressed = false;
       this.lang = this.lang === 'en' ? 'ru' : 'en';
@@ -55,10 +55,9 @@ class App {
     }
 
     if (activeSymbol.length === 1) {
-      this.textField.value =
-        this.text.slice(0, this.cursorPosition) +
-        activeSymbol +
-        this.text.slice(this.cursorPosition);
+      this.textField.value = this.text.slice(0, this.cursorPosition)
+        + activeSymbol
+        + this.text.slice(this.cursorPosition);
       this.textField.selectionStart = this.cursorPosition + 1;
       this.textField.selectionEnd = this.cursorPosition + 1;
       event.preventDefault();
@@ -71,18 +70,16 @@ class App {
       addLetter(this.CapsLock, this.Shift, this.lang, this.allKey);
     } else if (event.code === 'Backspace') {
       if (this.cursorPosition > 0) {
-        this.textField.value =
-          this.text.slice(0, this.cursorPosition - 1) +
-          this.text.slice(this.cursorPosition);
+        this.textField.value = this.text.slice(0, this.cursorPosition - 1)
+          + this.text.slice(this.cursorPosition);
         this.textField.selectionStart = this.cursorPosition - 1;
         this.textField.selectionEnd = this.cursorPosition - 1;
       }
       event.preventDefault();
     } else if (event.code === 'Delete') {
       if (this.cursorPosition < this.text.length) {
-        this.textField.value =
-          this.text.slice(0, this.cursorPosition) +
-          this.text.slice(this.cursorPosition + 1);
+        this.textField.value = this.text.slice(0, this.cursorPosition)
+          + this.text.slice(this.cursorPosition + 1);
         this.textField.selectionStart = this.cursorPosition;
         this.textField.selectionEnd = this.cursorPosition;
       }
@@ -109,7 +106,7 @@ class App {
     if (event.code === 'ControlLeft') {
       this.isCtrlPressed = false;
     }
-    checkBtnClick(event.code, this.allKey)
+    checkBtnClick(event.code, this.allKey);
     this.cursorPosition = this.textField.selectionStart;
   }
 
@@ -122,58 +119,62 @@ class App {
     this.textField.setSelectionRange(this.cursorPosition, this.cursorPosition);
 
     if (key.textContent.length === 1) {
-      this.textField.value = this.text.slice(0, this.cursorPosition) + key.textContent + this.text.slice(this.cursorPosition);
+      this.textField.value = this.text.slice(0, this.cursorPosition)
+      + key.textContent + this.text.slice(this.cursorPosition);
       this.textField.selectionStart = this.cursorPosition + 1;
       this.textField.selectionEnd = this.cursorPosition + 1;
       event.preventDefault();
-    } else if(key.textContent === 'CapsLock'){
-      this.CapsLock = this.CapsLock === true ? false : true;
+    } else if (key.textContent === 'CapsLock') {
+      this.CapsLock = this.CapsLock !== true;
       addLetter(this.CapsLock, this.Shift, this.lang, this.allKey);
       key.classList.toggle('active-key');
     } else if (key.classList.contains('Backspace')) {
       if (this.cursorPosition > 0) {
-        this.textField.value = this.text.slice(0, this.cursorPosition - 1) + this.text.slice(this.cursorPosition);
+        this.textField.value = this.text.slice(0, this.cursorPosition - 1)
+        + this.text.slice(this.cursorPosition);
         this.textField.selectionStart = this.cursorPosition - 1;
         this.textField.selectionEnd = this.cursorPosition - 1;
       }
       event.preventDefault();
-    }else if (key.classList.contains('Delete')) {
+    } else if (key.classList.contains('Delete')) {
       if (this.cursorPosition < this.text.length) {
-        this.textField.value = this.text.slice(0, this.cursorPosition) + this.text.slice(this.cursorPosition + 1);
+        this.textField.value = this.text.slice(0, this.cursorPosition)
+        + this.text.slice(this.cursorPosition + 1);
         this.textField.selectionStart = this.cursorPosition;
         this.textField.selectionEnd = this.cursorPosition;
       }
       event.preventDefault();
-    }else if (key.classList.contains('Space')) {
+    } else if (key.classList.contains('Space')) {
       event.preventDefault();
       this.keyOperation(' ', 1);
-    }else if (key.classList.contains('Tab')) {
+    } else if (key.classList.contains('Tab')) {
       event.preventDefault();
       this.keyOperation('    ', 4);
-    }else if (key.classList.contains('Enter')) {
+    } else if (key.classList.contains('Enter')) {
       event.preventDefault();
       this.keyOperation('\n', 1);
     }
   }
-  
+
   handleMouseDown(event) {
-    if(event.target.textContent === 'Shift'){
+    if (event.target.textContent === 'Shift') {
       this.Shift = true;
       addLetter(this.CapsLock, this.Shift, this.lang, this.allKey);
     }
   }
 
   handleMouseUp(event) {
-    if(event.target.textContent === 'Shift'){
+    if (event.target.textContent === 'Shift') {
       this.Shift = false;
-      draw();
+      addLetter();
     }
   }
-  
-  keyOperation = (val, step) => {
+
+  keyOperation(val, step) {
     this.cursorPosition = this.textField.selectionStart;
-    const value = this.textField.value;
-    this.textField.value = value.substring(0, this.cursorPosition) + val + value.substring(this.cursorPosition);
+    const { value } = this.textField;
+    this.textField.value = value.substring(0, this.cursorPosition)
+    + val + value.substring(this.cursorPosition);
     this.textField.selectionStart = this.cursorPosition + step;
     this.textField.selectionEnd = this.cursorPosition + step;
   }
