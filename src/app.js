@@ -1,7 +1,7 @@
-import drawElement from './components/drawElement';
-import checkBtnClick from './components/checkBtnClick';
-import addLetter from './components/addLetter';
-import getTextContent from './components/getTextContent';
+import drawElement from './components/drawElement.js';
+import checkBtnClick from './components/checkBtnClick.js';
+import addLetter from './components/addLetter.js';
+import getTextContent from './components/getTextContent.js';
 
 class App {
   constructor() {
@@ -54,6 +54,11 @@ class App {
       addLetter(this.CapsLock, this.Shift, this.lang, this.allKey);
     }
 
+    if (event.key === 'Shift') {
+      this.Shift = true;
+      addLetter(this.CapsLock, this.Shift, this.lang, this.allKey);
+    }
+
     if (activeSymbol.length === 1) {
       this.textField.value = this.text.slice(0, this.cursorPosition)
         + activeSymbol
@@ -65,9 +70,6 @@ class App {
       this.CapsLock = !this.CapsLock;
       addLetter(this.CapsLock, this.Shift, this.lang, this.allKey);
       checkBtnClick('CapsLock', this.allKey);
-    } else if (event.key === 'Shift') {
-      this.Shift = true;
-      addLetter(this.CapsLock, this.Shift, this.lang, this.allKey);
     } else if (event.code === 'Backspace') {
       if (this.cursorPosition > 0) {
         this.textField.value = this.text.slice(0, this.cursorPosition - 1)
@@ -166,7 +168,7 @@ class App {
   handleMouseUp(event) {
     if (event.target.textContent === 'Shift') {
       this.Shift = false;
-      addLetter();
+      addLetter(this.CapsLock, this.Shift, this.lang, this.allKey);
     }
   }
 

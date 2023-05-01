@@ -1,9 +1,13 @@
 {
   "extends": "airbnb-base",
-  
   "globals": {
     "document": true,
     "localStorage": true
+  },
+  "rules": {
+    "import/extensions": ["error", "ignorePackages", {
+      "js": "always"
+    }]
   }
   
 }
