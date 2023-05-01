@@ -1,13 +1,13 @@
 const keyClasses = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7', 'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete', 'CapsLock', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'Enter', 'ShiftLeft', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'ArrowUp', 'ShiftRight', 'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'ControlRight'];
 
-export const drawElement = () => {
+const drawElement = () => {
   const keyboardContainer = document.createElement('div');
   keyboardContainer.className = 'keyboard-conatiner';
-  
+
   const keyboard = document.createElement('div');
   keyboard.className = 'keyboard';
 
-  keyClasses.forEach((val, i) => {
+  keyClasses.forEach((val) => {
     const btn = document.createElement('button');
     if (val === 'Delete') {
       btn.className = `keyboard-key ${val} XS-btn cntrl-btn`;
@@ -21,10 +21,10 @@ export const drawElement = () => {
       btn.className = `keyboard-key ${val} XL-btn cntrl-btn`;
     } else {
       btn.className = `keyboard-key ${val}`;
-    }    
+    }
     keyboard.append(btn);
-  })
-  keyboardContainer.append(keyboard)
+  });
+  keyboardContainer.append(keyboard);
 
   const textField = document.createElement('textarea');
   textField.className = 'text-field';
@@ -49,5 +49,6 @@ export const drawElement = () => {
   container.append(title, mainContainer, subTitle);
 
   document.body.append(container);
-}
+};
 
+export default drawElement;
